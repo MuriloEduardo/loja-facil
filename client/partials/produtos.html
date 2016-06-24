@@ -1,0 +1,186 @@
+<section class="produtos-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-md-8">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="cadastro-produtos-box fnt-12">
+                <!-- Topo -->
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="topo-cadastro-produtos">
+                      <div class="row nomargin">
+                        <div class="col-md-10">
+                          <p><strong>Vamos vender mais?</strong> Então cadastre mais produtos.</p>
+                        </div>
+                        <div class="col-md-2 text-right">
+                          <div class="btn-group optionsTopoCadastroProduto">
+                            <a href="javascript:void(0)" class="gray dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i class="fa fa-angle-down" aria-hidden="true"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                              <li><a href="#">Action</a></li>
+                              <li><a href="#">Another action</a></li>
+                              <li><a href="#">Something else here</a></li>
+                              <li role="separator" class="divider"></li>
+                              <li><a href="#">Separated link</a></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Conteudo central verticalmente -->
+                <div class="row content-new-prdt">
+                  <!-- Imagem do produto-->
+                  <div class="col-md-3">
+                    <div class="row">
+                      <div class="col-md-12 text-center">
+                        <img src="img/prdt-no-photo.png" class="img-responsive thumbnail photo" alt="">
+                      </div>
+                    </div>
+                    <div class="row text-center mais-fotos">
+                      <div class="col-md-12">
+                        <a href="#">Adicionar fotos</a>
+                        {{categorias}}
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Informações do produto -->
+                  <div class="col-md-9">
+                    <form name="passo1" class="passos">
+                      <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Qual o título desse produto?" ng-focus="stopSave()" ng-blur="salvar()" ng-model="produto.titulo">
+                      </div>
+                      <div class="form-group">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="input-group"> 
+                              <input type="text" class="form-control" placeholder="Qual departamento? Informática, Roupas, Antiguidades ..." ng-focus="stopSave()" ng-blur="salvar();setDepartamento();" ng-model="produto.departamento">
+                              <div class="input-group-btn"> 
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+                                  <span class="caret"></span> 
+                                  <span class="sr-only">Toggle Dropdown</span> 
+                                </button> 
+                                <ul class="dropdown-menu dropdown-menu-right"> 
+                                  <li><a href="javascript:void(0)" disabled="true" ng-show="departamentos.length == '0'" ng-hide="departamentos.length != '0'">Sem departamentos</a></li>
+                                  <li role="separator" class="divider"></li>
+                                  <li><a href="javascript:void(0)" ng-click="focus('departamento')">Adicionar</a></li>
+                                </ul> 
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="input-group"> 
+                              <input type="text" class="form-control" placeholder="Qual a categoria? Notebook, Casacos, Moedas ..." ng-focus="stopSave()" ng-blur="salvar()" ng-model="produto.categoria">
+                              <div class="input-group-btn"> 
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+                                  <span class="caret"></span> 
+                                  <span class="sr-only">Toggle Dropdown</span> 
+                                </button> 
+                                <ul class="dropdown-menu dropdown-menu-right scrollable-menu"> 
+                                  <li><a href="javascript:void(0)" disabled="true" ng-show="categorias.length == '0'" ng-hide="categorias.length != '0'">Sem categorias</a></li>
+                                  <li><a href="javascript:void(0)" ng-repeat="cat in categorias">{{cat.categoria}}</a></li>
+                                  <li role="separator" class="divider"></li>
+                                  <li><a href="javascript:void(0)" ng-click="focus('categoria')">Adicionar</a></li>
+                                </ul> 
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="input-group"> 
+                              <input type="text" class="form-control noarrows" placeholder="Qual o preço?" ng-focus="stopSave()" ng-blur="salvar()" ng-model="produto.preco" value="{{campoDinheiro | currency:'R$'}}">
+                              <div class="input-group-btn"> 
+                                <button type="button" class="btn btn-default" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+                                  R$ {{produto.preco | currency:''}}
+                                </button> 
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <input type="number" class="form-control" placeholder="Qual a quantidade total?" mask="9999999999" mask-restrict="reject" ng-focus="stopSave()" ng-blur="salvar()" ng-model="produto.quantidade">
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                    <!-- <div class="form-group">
+                      <div class="progress">
+                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{(passo * 100 / 100) * 10}}%;">
+                        {{(passo * 100 / 100) * 10}}%
+                        </div>
+                      </div>
+                    </div> -->
+                  </div>
+                </div>
+                <!-- Footer do cadastro de produtos -->
+                <div class="row text-right">
+                  <div class="col-md-12">
+                    <div class="footer-cadastro-produtos">
+                      <!-- <a href="#">Abandonar :(</a>
+                      <a href="javascript:void(0)" class="btn btn-primary btn-anim-icon fnt-12" ng-click="salvar(produto)">Salvar no estoque</a> -->
+                      <div class="row nomargin">
+                        <div class="col-md-12">
+                          <span ng-show="produtoSalvo" class="success">Produto salvo em estoque!</span>
+                          <i ng-hide="produtoSalvo" class="fa {{loadingsaveProduto}}" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Se não terminá-lo agora, você poderá retomá-lo"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Coluna da direita para manipulações rapidas -->
+        <div class="col-md-4">
+          <div class="cadastro-produtos-box fnt-12">
+            <!-- Topo -->
+            <div class="row">
+              <div class="col-md-12">
+                <div class="topo-cadastro-produtos">
+                  <div class="row nomargin">
+                    <div class="col-md-12">
+                      <p><strong>Este é seu estoque!</strong> Fique atento.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="loading-estoque" ng-show="estoque == ''" ng-hide="estoque != '' || estoque.length == '0'">
+                  <i class="fa fa-spinner fa-pulse fa-fw" aria-hidden="true"></i>
+                </div>
+                <div class="no-produtos-estoque" ng-show="estoque.length == '0'" ng-hide="estoque.length != '0'">
+                  <i class="fa fa-frown-o" aria-hidden="true"></i>
+                  <br>
+                  Você ainda não tem produtos<br>para vender
+                </div>
+                <div ng-show=""></div>
+                <div class="cada-produto-estoque" ng-repeat="prdt in estoque">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <img src="img/prdt-no-photo.png" class="img-responsive thumbnail" alt="">
+                    </div>
+                    <div class="col-md-9">
+                      <div class="row">
+                        <p class="tit-produto">{{prdt.titulo}}</p>
+                      </div>
+                      <div class="row numeros-produtos">
+                        <span class="label label-success"><strong>1000</strong>Visulizações</span>
+                        <span class="label label-info"><strong>10</strong>Em estoque</span>
+                        <span class="label label-warning"><strong>3</strong>Vendidos</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

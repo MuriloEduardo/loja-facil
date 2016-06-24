@@ -1,0 +1,20 @@
+{
+  "name": "Murilo Eduardo dos Santos",
+  "description": "Esta é a primeira versão da aplicação de aluguel de lojas virtuais",
+  "main": "server.js",
+  "authors": [
+    "Murilo Eduardo dos Santos"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "dependencies": {
+    "angular": "^1.5.7",
+    "bootstrap": "^3.3.6",
+    "angular-route": "^1.5.7",
+    "angular-resource": "^1.5.7",
+    "angular-animate": "^1.5.7"
+  },
+  "install": {
+    "path": "client/libs"
+  }
+}
