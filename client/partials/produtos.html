@@ -5,26 +5,26 @@
         <div class="col-md-8">
           <div class="row">
             <div class="col-md-12">
-              <div class="cadastro-produtos-box fnt-12">
+              <div class="cadastro-produtos-box">
                 <!-- Topo -->
                 <div class="row">
                   <div class="col-md-12">
                     <div class="topo-cadastro-produtos">
                       <div class="row nomargin">
                         <div class="col-md-10">
-                          <p><strong>Vamos vender mais?</strong> Então cadastre mais produtos.</p>
+                          <p class="nomargin"><strong>Novo produto</strong></p>
+                          <p class="fnt-12">Deixamos este cadastro o mais prático possível, então, cadastre bastente!</p>
                         </div>
                         <div class="col-md-2 text-right">
                           <div class="btn-group optionsTopoCadastroProduto">
                             <a href="javascript:void(0)" class="gray dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <i class="fa fa-angle-down" aria-hidden="true"></i>
+                              <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-right">
-                              <li><a href="#">Action</a></li>
-                              <li><a href="#">Another action</a></li>
-                              <li><a href="#">Something else here</a></li>
+                              <li><a href="#">Ajuda</a></li>
+                              <li><a href="javascript:void(0)" ng-click="salvaAutoFun()"><span ng-show="salvaAuto" ng-hide="!salvaAuto">Desabilitar</span><span ng-show="!salvaAuto" ng-hide="salvaAuto">Habilitar</span> salvamento automático</a></li>
                               <li role="separator" class="divider"></li>
-                              <li><a href="#">Separated link</a></li>
+                              <li><a href="#">Relatar algum problema</a></li>
                             </ul>
                           </div>
                         </div>
@@ -36,15 +36,12 @@
                 <div class="row content-new-prdt">
                   <!-- Imagem do produto-->
                   <div class="col-md-3">
-                    <div class="row">
-                      <div class="col-md-12 text-center">
-                        <img src="img/prdt-no-photo.png" class="img-responsive thumbnail photo" alt="">
-                      </div>
-                    </div>
-                    <div class="row text-center mais-fotos">
-                      <div class="col-md-12">
-                        <a href="#">Adicionar fotos</a>
-                        {{categorias}}
+                    <div class="row nomargin">
+                      <div class="col-md-12 text-center nopadding-r">
+                        <div class="thumbnail photo eng-photo-newprdt">
+                          <i class="fa fa-camera" aria-hidden="true"></i>
+                          <div>Adicionar<br>mais fotos</div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -57,36 +54,17 @@
                       <div class="form-group">
                         <div class="row">
                           <div class="col-md-6">
-                            <div class="input-group"> 
-                              <input type="text" class="form-control" placeholder="Qual departamento? Informática, Roupas, Antiguidades ..." ng-focus="stopSave()" ng-blur="salvar();setDepartamento();" ng-model="produto.departamento">
-                              <div class="input-group-btn"> 
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
-                                  <span class="caret"></span> 
-                                  <span class="sr-only">Toggle Dropdown</span> 
-                                </button> 
-                                <ul class="dropdown-menu dropdown-menu-right"> 
-                                  <li><a href="javascript:void(0)" disabled="true" ng-show="departamentos.length == '0'" ng-hide="departamentos.length != '0'">Sem departamentos</a></li>
-                                  <li role="separator" class="divider"></li>
-                                  <li><a href="javascript:void(0)" ng-click="focus('departamento')">Adicionar</a></li>
-                                </ul> 
-                              </div>
-                            </div>
+                            <select class="form-control" ng-show="departamentos.length != '0'" ng-model="produto.departamento.titulo" ng-change="salvar()" ng-options="departamento for departamento in departamentos">
+                              <option value="" disabled>Qual o departamento?</option>
+                            </select>
+                            <input type="text" ng-show="departamentos.length == '0'" placeholder="Qual o departamento?" class="form-control" ng-focus="stopSave()" ng-model="produto.departamento.titulo" ng-blur="salvar()"></input>
                           </div>
                           <div class="col-md-6">
-                            <div class="input-group"> 
-                              <input type="text" class="form-control" placeholder="Qual a categoria? Notebook, Casacos, Moedas ..." ng-focus="stopSave()" ng-blur="salvar()" ng-model="produto.categoria">
-                              <div class="input-group-btn"> 
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
-                                  <span class="caret"></span> 
-                                  <span class="sr-only">Toggle Dropdown</span> 
-                                </button> 
-                                <ul class="dropdown-menu dropdown-menu-right scrollable-menu"> 
-                                  <li><a href="javascript:void(0)" disabled="true" ng-show="categorias.length == '0'" ng-hide="categorias.length != '0'">Sem categorias</a></li>
-                                  <li><a href="javascript:void(0)" ng-repeat="cat in categorias">{{cat.categoria}}</a></li>
-                                  <li role="separator" class="divider"></li>
-                                  <li><a href="javascript:void(0)" ng-click="focus('categoria')">Adicionar</a></li>
-                                </ul> 
-                              </div>
+                            <select ng-show="categorias.length != '0'" class="form-control" ng-focus="stopSave()" ng-model="produto.categoria.titulo" ng-blur="salvar()" ng-options="categoria for categoria in categorias">
+                              <option value="" disabled>Qual a categoria?</option>
+                            </select>
+                            <div class="icone-input-right">
+                              <input type="text" ng-show="categorias.length == '0'" placeholder="Qual a categoria?" class="form-control" ng-focus="stopSave()" ng-model="produto.categoria.titulo" ng-blur="salvar()"></input>
                             </div>
                           </div>
                         </div>
@@ -94,13 +72,14 @@
                       <div class="form-group">
                         <div class="row">
                           <div class="col-md-6">
-                            <div class="input-group"> 
-                              <input type="text" class="form-control noarrows" placeholder="Qual o preço?" ng-focus="stopSave()" ng-blur="salvar()" ng-model="produto.preco" value="{{campoDinheiro | currency:'R$'}}">
+                            <div class="input-group">
                               <div class="input-group-btn"> 
-                                <button type="button" class="btn btn-default" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
-                                  R$ {{produto.preco | currency:''}}
-                                </button> 
+                                <div class="btn btn-default" style="width:125px"> 
+                                  <span ng-show="produto.preco" ng-hide="!produto.preco">R$ {{produto.preco | currency:''}}</span>
+                                  <span ng-show="!produto.preco" ng-hide="produto.preco">R$ {{'0' | currency:''}}</span>
+                                </div>
                               </div>
+                              <input type="text" class="form-control noarrows" placeholder="Qual o preço?" ng-focus="stopSave()" ng-blur="salvar()" ng-model="produto.preco" mask="9999999" mask-restrict="reject" value="{{campoDinheiro | currency:'R$'}}" maxlength="7">
                             </div>
                           </div>
                           <div class="col-md-6">
@@ -109,25 +88,86 @@
                         </div>
                       </div>
                     </form>
-                    <!-- <div class="form-group">
-                      <div class="progress">
-                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{(passo * 100 / 100) * 10}}%;">
-                        {{(passo * 100 / 100) * 10}}%
-                        </div>
-                      </div>
-                    </div> -->
                   </div>
                 </div>
                 <!-- Footer do cadastro de produtos -->
                 <div class="row text-right">
                   <div class="col-md-12">
                     <div class="footer-cadastro-produtos">
-                      <!-- <a href="#">Abandonar :(</a>
-                      <a href="javascript:void(0)" class="btn btn-primary btn-anim-icon fnt-12" ng-click="salvar(produto)">Salvar no estoque</a> -->
-                      <div class="row nomargin">
+                      <div class="row nomargin" ng-show="!salvaAuto" ng-hide="salvaAuto">
+                        <div class="col-md-12">
+                          <a href="#">Abandonar :(</a>
+                          <a href="javascript:void(0)" class="btn btn-primary btn-anim-icon fnt-12" ng-click="salvar(produto)">Salvar no estoque</a>
+                        </div>
+                      </div>
+                      <div class="row nomargin" ng-show="salvaAuto" ng-hide="!salvaAuto">
                         <div class="col-md-12">
                           <span ng-show="produtoSalvo" class="success">Produto salvo em estoque!</span>
-                          <i ng-hide="produtoSalvo" class="fa {{loadingsaveProduto}}" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Se não terminá-lo agora, você poderá retomá-lo"></i>
+                          <i ng-hide="produtoSalvo" class="fa {{loadingsaveProduto}}" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Salvamento automático"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="cadastro-produtos-box">
+                <!-- Topo -->
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="topo-cadastro-produtos">
+                      <div class="row nomargin">
+                        <div class="col-md-10">
+                          <p class="nomargin"><strong>Produtos abandonados</strong></p>
+                          <p class="fnt-12">Salvamos estes produtos para que você não deixe de vende-los!</p>
+                        </div>
+                        <div class="col-md-2 text-right">
+                          <div class="btn-group optionsTopoCadastroProduto">
+                            <a href="javascript:void(0)" class="gray dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                              <li><a href="#">Ajuda</a></li>
+                              <li><a href="javascript:void(0)" ng-click="salvaAutoFun()"><span ng-show="salvaAuto" ng-hide="!salvaAuto">Desabilitar</span><span ng-show="!salvaAuto" ng-hide="salvaAuto">Habilitar</span> salvamento automático</a></li>
+                              <li role="separator" class="divider"></li>
+                              <li><a href="#">Relatar algum problema</a></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="loading-estoque" ng-show="getingProdutos" ng-hide="!getingProdutos">
+                      <i class="fa fa-spinner fa-pulse fa-fw" aria-hidden="true"></i>
+                    </div>
+                    <div class="no-produtos-estoque" ng-show="isEmpty(abandonados) && !getingProdutos">
+                      <i class="fa fa-smile-o" aria-hidden="true"></i>
+                      <br>
+                      Você não tem produtos<br>abandonados
+                    </div>
+                    <div class="cada-produto-estoque" ng-repeat="prdt in abandonados">
+                      <div class="row">
+                        <div class="col-md-2">
+                          <img src="img/prdt-no-photo.png" class="img-responsive" alt="">
+                        </div>
+                        <div class="col-md-10">
+                          <div class="row">
+                            <div class="tit-produto tit-produto-abandonados">
+                              <div ng-if="prdt.titulo"><strong>{{prdt.titulo}}</strong></div>
+                              <div ng-if="!prdt.titulo"><strong>Produto abandonado :(</strong></div>
+                              <div ng-if="prdt.departamento">Departamento: {{prdt.departamento}}</div>
+                              <div ng-if="prdt.categoria">Categoria: {{prdt.categoria}}</div>
+                              <div ng-if="prdt.preco">R$ {{prdt.preco | currency:''}}</div>
+                              <div ng-if="prdt.quantidade">{{prdt.quantidade}} unidades</div>
+                            </div>
+                          </div>
+                          <div class="row numeros-produtos numeros-produtos-abandonados">
+                            <a href="javascript:void(0)" class="btn btn-danger" ng-click="delete($index)">Descartar</a>
+                            <a href="javascript:void(0)" class="btn btn-primary" ng-click="retomar(prdt)">Retomar cadastro</a>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -139,39 +179,40 @@
         </div>
         <!-- Coluna da direita para manipulações rapidas -->
         <div class="col-md-4">
-          <div class="cadastro-produtos-box fnt-12">
+          <div class="cadastro-produtos-box estoque-box">
             <!-- Topo -->
             <div class="row">
               <div class="col-md-12">
                 <div class="topo-cadastro-produtos">
                   <div class="row nomargin">
                     <div class="col-md-12">
-                      <p><strong>Este é seu estoque!</strong> Fique atento.</p>
+                      <p class="nomargin"><strong>Estoque</strong></p>
+                      <p class="fnt-12">Cores? Tamahos? Frete? Configuramos tudo aqui.</p>
                     </div>
                   </div>
                 </div>
-                <div class="loading-estoque" ng-show="estoque == ''" ng-hide="estoque != '' || estoque.length == '0'">
+                <div class="loading-estoque" ng-show="getingProdutos" ng-hide="!getingProdutos">
                   <i class="fa fa-spinner fa-pulse fa-fw" aria-hidden="true"></i>
                 </div>
-                <div class="no-produtos-estoque" ng-show="estoque.length == '0'" ng-hide="estoque.length != '0'">
+                <div class="no-produtos-estoque" ng-show="isEmpty(estoque) && !getingProdutos">
                   <i class="fa fa-frown-o" aria-hidden="true"></i>
                   <br>
-                  Você ainda não tem produtos<br>para vender
+                  Você não tem produtos<br>para vender
                 </div>
-                <div ng-show=""></div>
                 <div class="cada-produto-estoque" ng-repeat="prdt in estoque">
                   <div class="row">
                     <div class="col-md-3">
-                      <img src="img/prdt-no-photo.png" class="img-responsive thumbnail" alt="">
+                      <img src="img/prdt-no-photo.png" class="img-responsive" alt="">
                     </div>
                     <div class="col-md-9">
                       <div class="row">
-                        <p class="tit-produto">{{prdt.titulo}}</p>
+                        <div class="tit-produto">
+                          <div><strong>{{prdt.titulo}}</strong></div>
+                          <div>R$ {{prdt.preco | currency:''}}</div>
+                        </div>
                       </div>
                       <div class="row numeros-produtos">
-                        <span class="label label-success"><strong>1000</strong>Visulizações</span>
-                        <span class="label label-info"><strong>10</strong>Em estoque</span>
-                        <span class="label label-warning"><strong>3</strong>Vendidos</span>
+                        <a href="javascript:void(0)" class="btn btn-primary">Adicione mais informações</a>
                       </div>
                     </div>
                   </div>

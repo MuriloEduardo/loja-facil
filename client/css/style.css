@@ -42,14 +42,14 @@ a.gray:focus, a.gray:hover{
 .main-section {
     height: 100%;
     padding-top: 120px;
+    background-color:#f7f7f7;
 }
 .configuracoes-section{
     background-color:#fff;
 }
 section{
-    padding:30px;
+    padding:30px 0 70px 0;
     background-color:#f7f7f7;
-    height: 100%;
 }
 .navbar-default{
     background-color:#00aaff;
@@ -58,6 +58,7 @@ section{
 .navbar-secondary{
     background-color:#fff;
     border-color:#E7E7EC;
+    z-index: 10;
 }
 .box-shadown-black-1{
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
@@ -107,6 +108,7 @@ section{
 .navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
     color: #0176a1;
     background-color: transparent;
+    border-bottom: 0;
 }
 .navbar-brand{
     height:70px;
@@ -114,8 +116,9 @@ section{
 }
 .navbar-right{margin-right:0;}
 .navbar-brand .fa{
-    font-size:22px;
-    margin-right: 5px;
+    font-size:30px;
+    animation: bounceInLeft 1s;
+    margin-right: 15px;
 }
 .circle{
     border-radius:100%;
@@ -234,7 +237,7 @@ section{
 .upload-produtos:hover{background-color:rgba(0, 170, 225, .1);}
 .box-cadastro{
     background-color:#fff;
-    border-radius:4px;
+    border-radius:2px;
     border:solid thin #E7E7EC;
     min-height:200px;
     padding:40px;
@@ -248,17 +251,13 @@ section{
 .botoesCadastro{padding:15px 0;}
 .botoesCadastro a{margin-right:15px;}
 .botoesCadastro .btn .fa{margin-left:5px;}
-.box-cadastro ::-webkit-input-placeholder,.cadastro-produtos-box ::-webkit-input-placeholder{font-size:12px;}
-.box-cadastro :-moz-placeholder,.cadastro-produtos-box :-moz-placeholder{font-size:12px;}
-.box-cadastro ::-moz-placeholder,.cadastro-produtos-box ::-moz-placeholder{font-size:12px;}
-.box-cadastro :-ms-input-placeholder,.cadastro-produtos-box :-ms-input-placeholder{font-size:12px;}
-
+.cadastro-produtos-box select{color: #999;}
+.cadastro-produtos-box select option{color: #333;}
 .form-control{
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
     box-shadow:none;
     border: 1px solid #ddd;
 }
-.nomargin{margin:0;}
 input[type=number].noarrows::-webkit-inner-spin-button, 
 input[type=number].noarrows::-webkit-outer-spin-button { 
   -webkit-appearance: none; 
@@ -268,8 +267,7 @@ input[type=number].noarrows::-webkit-outer-spin-button {
     border-color: #00aaff;
     outline: 0;
     padding-left:15px;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(0,170,255,.6);
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(0,170,255,.6);
+    box-shadow: none;
 }
 .cadastro-produtos-box{
     background-color:#fff;
@@ -278,7 +276,9 @@ input[type=number].noarrows::-webkit-outer-spin-button {
     padding-bottom: 0;
     padding-left: 0;
     border:solid thin #ddd;
-    overflow:hidden;
+}
+.estoque-box{
+    overflow: hidden;
 }
 .cadastro-produtos-box .progress{height:12px;}
 .cadastro-produtos-box .progress-bar{
@@ -329,25 +329,51 @@ input[type=number].noarrows::-webkit-outer-spin-button {
     animation:bounceInUp 1s;
 }
 .cada-produto-estoque.ng-leave{
-    animation:bounceOut 1s;   
+    animation:bounceOutUp 1s;   
 }
 .cada-produto-estoque{
     border-bottom:solid thin #E7E7EC;
     padding:15px;
-    padding-right:0;
     margin-right:-20px;
     cursor:pointer;
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 }
-.cada-produto-estoque:hover{background-color:#E7E7EC;}
-.numeros-produtos .label{font-weight:normal;}
-.numeros-produtos .label strong{
-    margin-right:3px;
-    font-weight:bold;
+.cada-produto-estoque:hover{background-color:#f7f7f7;}
+.numeros-produtos .btn{
+    font-size: 12px;
+    padding: 2px 12px;
 }
-.tit-produto{color:#808080;}
-.thumbnail.photo{cursor:pointer;}
-.thumbnail.photo:hover{border-color:#00aaff;}
+.nopadding-r{
+    padding-right: 0;
+}
+.numeros-produtos-abandonados{
+    margin-top: 5px;
+}
+.tit-produto{color:#808080;font-size: 12px;}
+.tit-produto div:last-child{
+    margin-bottom: 5px;
+}
+.tit-produto-abandonados div{
+    margin-bottom: 5px;   
+}
+.thumbnail.photo{
+    cursor:pointer;
+    min-height: 132px;
+    width: 100%;
+    color: #bbb;
+    font-size: 12px;
+    border: 1px dashed #bbb;
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+.thumbnail.photo:hover{
+    color: #00aaff;
+    background-color: rgba(0, 170, 255, .1);
+    border: 1px dashed #00aaff;
+}
+.thumbnail.photo i{
+    font-size: 30px;
+    margin: 20px 0;
+}
 .icone-input-right{
     position:relative;
 }
@@ -364,8 +390,8 @@ input[type=number].noarrows::-webkit-outer-spin-button {
 .icone-input-right.icone-two .fa{
     right:20px;
 }
-.icone-input-right .info{
-    color:#ddd;
+.icone-input-right .fa-info-circle{
+    color:#808080;
 }
 .tooltip > .tooltip-inner {
     background-color: #00aaff;
@@ -408,13 +434,33 @@ input[type=number].noarrows::-webkit-outer-spin-button {
     background-color: #f1f1f1;
     border-color: #ddd;
 }
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
+    background-color: transparent;
+}
+.navbar-default .navbar-nav>.open>a .circle-perfil{
+    box-shadow: 0 3px 7px rgba(255,255,255,0.12), 0 3px 5px rgba(255,255,255,0.24);
+    border: solid 2px rgba(255, 255, 255, .6);
+}
 .dropdown-menu{
     margin:0;
     padding:0;
-    overflow:hidden;
+}
+.navbar-nav>li>.dropdown-menu {
+    margin-top: 0;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    position: fixed;
+    top: 55px;
+    right: 110px;
 }
 .dropdown-menu .divider{
     margin:0;
+}
+.dropdown-menu li:first-child{
+    border-top-radius: 4px;
+}
+.dropdown-menu li:last-child{
+    border-bottom-radius: 4px;
 }
 .dropdown-menu>li>a {
     display: block;
@@ -424,7 +470,14 @@ input[type=number].noarrows::-webkit-outer-spin-button {
     line-height: 1.42857143;
     color: #808080;
     white-space: nowrap;
-    font-size:12px;
+}
+.dropdown-menu>li>a:first-child{
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+}
+.dropdown-menu>li>a:last-child{
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
 }
 .dropdown-menu>li>a[disabled="true"]:focus, .dropdown-menu>li>a[disabled="true"]:hover {
     color: #808080;
@@ -440,8 +493,23 @@ input[type=number].noarrows::-webkit-outer-spin-button {
 .optionsTopoCadastroProduto .fa{
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 }
-.optionsTopoCadastroProduto .fa.fa-angle-down{
-    font-size:18px;
+.optionsTopoCadastroProduto .fa{
+    font-size:22px;
+    padding-right: 7px;
+}
+@media screen and (min-width:750px) {
+    .dropdown-menu.with-arrow:before {
+        position: absolute;
+        top: -8px;
+        right: 19px;
+        z-index: 9;
+        display: inline-block;
+        border-right: 8px solid transparent;
+        border-bottom: 8px solid #fff;
+        border-left: 8px solid transparent;
+        border-bottom-color: #fff;
+        content:'';
+    }
 }
 .btn-group.open .dropdown-toggle {box-shadow:none;}
 .success{color:#5cb85c;}
@@ -452,5 +520,77 @@ input[type=number].noarrows::-webkit-outer-spin-button {
 .no-produtos-estoque{
     padding:20px;
     text-align:center;
+    overflow: hidden;
     color:#bbb;
+}
+.estoque-labels{
+    color: #fff;
+    text-align: center;
+    padding:5px;
+    border-radius: 4px;
+    font-size: 10px;
+    display: inline-block;
+}
+.estoque-info1{
+    background-color: #0176a1;
+}
+.estoque-info2{
+    background-color: #00aaff;
+}
+.estoque-info3{
+    background-color: #5bc0de;
+}
+footer{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background-color: #fff;
+    width: 100%;
+    padding: 10px 0;
+    border-top: solid thin #E7E7EC;
+    z-index: 9;
+}
+footer .btn{
+    padding: 2px 15px;
+    margin-left: 15px;
+}
+.navbar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand{
+    margin-left: 0;
+}
+.nomargin{margin:0 !important;}
+.topo-dropdown-user{
+    padding: 20px 20px 5px 20px;
+    text-align: center;
+    color: #808080;
+}
+.topo-dropdown-user p{
+    margin-bottom: 5px;
+}
+.topo-dropdown-user p:last-child{
+    font-size: 12px;
+}
+.topo-dropdown-user .circle-perfil{
+    margin: 0 auto 10px auto;
+    width: 60px;
+    height: 60px;
+}
+nav .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover{
+    text-decoration: none;
+    background-color: #f1f1f1;
+}
+nav .dropdown-menu>li>a{
+    color: #00aaff;
+    padding: 10px 20px;
+}
+nav .dropdown-menu>li>a i{
+    margin-right: 5px;
+}
+.notification a{
+    padding-top: 25px !important;
+    padding-bottom: 24px !important;
+}
+.notification i{
+    font-size: 18px;
+    vertical-align: middle;
+    height: 100%;
 }

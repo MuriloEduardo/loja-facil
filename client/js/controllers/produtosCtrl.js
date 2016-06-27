@@ -1,45 +1,47 @@
-app.controller('produtosCtrl', function($scope, $filter, Api, $timeout){
+app.controller('produtosCtrl', function($scope, Api, $timeout){
 
 	var delaySave;
 	var idProdutoCadastrando;
 	$scope.produtoSalvo = false;
 	$scope.loadingsaveProduto = 'fa-floppy-o';
+	$scope.salvaAuto = true;
 	$scope.estoque = [];
+	$scope.abandonados = [];
 	$scope.categorias = [];
 	$scope.departamentos = [];
-	$scope.abandonados = [];
-	$scope.produtosBD = [];
+	
+	$scope.salvaAutoFun = function() {
+		if($scope.salvaAuto){
+			$scope.salvaAuto = false;
+		}else{
+			$scope.salvaAuto = true;
+		}
+	}
 
-	$(function() {
-	    Api.Produtos.query({}, function(data){
+	var getProdutos = function() {
+		$scope.getingProdutos = true;
+		Api.Produtos.query({}, function(data){
+			console.log(data)
 			for (var i=0; i < data.length; i++) {
-				$scope.produtosBD.push(data[i]);
-				if(Object.keys(data[i]).length >= 7){
+
+				if(data[i].categoria)
+					$scope.categorias.push(data[i].categoria);
+
+				if(data[i].departamento)
+					$scope.departamentos.push(data[i].departamento);
+
+				if(Object.keys(data[i]).length >= 9){
 					$scope.estoque.push(data[i]);
 				}else{
 					$scope.abandonados.push(data[i]);
 				}
 			}
+			$scope.getingProdutos = false;
 		});
-	});
-
-	var carregaCategorias = function() {
-		for (var i=0; i < $scope.produtosBD.length; i++) {
-			$scope.categorias.push($scope.produtosBD[i].categoria);
-		}
 	}
-
-	var carregaDepartamentos = function() {
-		console.log($scope.produtosBD)
-		for (var i=0; i < $scope.produtosBD.length; i++) {
-			$scope.departamentos.push($scope.produtosBD[i].departamento);
-		}
-	}
-
-	carregaCategorias();
-	carregaDepartamentos();
 
 	var validaFormularios = function(form){
+		
 		$('form[name="' + form + '"] input[required="true"]').each(function() {
 			var t = $(this);
 			if(!t.val()){
@@ -54,11 +56,12 @@ app.controller('produtosCtrl', function($scope, $filter, Api, $timeout){
 		});
 	}
 
+	$scope.isEmpty = function(obj) {
+	    return Object.keys(obj).length === 0;
+	}
+
 	$scope.salvar = function() {
-		// SO validar no ultimo campo
-		//validaFormularios('passo-1')
-		//if(retorno){
-		//$filter('currency')(produto.preco, 'R$ ');
+		
 		$scope.loadingsaveProduto = 'fa-spinner fa-pulse fa-fw';
 		if($scope.produto){
 			if(Object.keys($scope.produto).length == 1){
@@ -73,6 +76,7 @@ app.controller('produtosCtrl', function($scope, $filter, Api, $timeout){
 					});
 				}, 1000);
 			}else{
+				console.log(idProdutoCadastrando)
 				delaySave = setTimeout(function(){
 					Api.Produtos.save({id: idProdutoCadastrando}, $scope.produto, function(data){
 						if(data){
@@ -80,16 +84,14 @@ app.controller('produtosCtrl', function($scope, $filter, Api, $timeout){
 							////////////////////////////////////
 							// completou cadastro do produto //
 							//////////////////////////////////
-							if(Object.keys(data).length >= 9){
+							if(Object.keys(data).length >= 11){
+								delete $scope.produto;
 								$scope.estoque.push(data);
 								$scope.produtoSalvo = true;
-								delete $scope.produto;
 								$timeout(function(){
 									$scope.produtoSalvo = false;
 									$scope.loadingsaveProduto = 'fa-floppy-o';
-									carregaCategorias();
-									carregaDepartamentos();
-								}, 2500);  
+								}, 3000);  
 							}
 						}
 					});
@@ -111,5 +113,40 @@ app.controller('produtosCtrl', function($scope, $filter, Api, $timeout){
 		$('[ng-model="produto.' + el + '"]').focus();
 	}
 
+	$scope.delete = function(index) {
+		var box = bootbox.confirm({
+			message: 'Tem certeza? Não prefere completa-lo para fatura mais? :)',
+			buttons: {
+		        'cancel': {
+		            label: 'Cancelar',
+		            className: 'btn-default'
+		        },
+		        'confirm': {
+		            label: 'Descartar',
+		            className: 'btn-danger'
+		        }
+		    },
+			callback: function(resposta) {
+				if(resposta){
+					Api.Produtos.delete({id: $scope.abandonados[index]._id}, function(data) {
+						$scope.abandonados.splice(index, 1);
+						box.show('Produto descartado');
+					});
+				}
+			}
+		})
+	}
+
+	$scope.retomar = function(obj) {
+		console.log(obj._id)
+		idProdutoCadastrando = obj._id;
+
+		$scope.produto = obj;
+
+		$('input[ng-model="produto.titulo"]').focus();
+	}
+
 	$('[data-toggle="tooltip"]').tooltip();
+
+	getProdutos();
 });

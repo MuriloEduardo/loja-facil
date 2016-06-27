@@ -8,6 +8,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+    <link rel="icon" type="image/png" href="img/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="img/favicon-16x16.png" sizes="16x16" />
     <title>Sua loja virtual agora é fácil</title>
 
     <!-- Bootstrap Core CSS -->
@@ -31,30 +33,60 @@
 
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-      <div class="navbar-header page-scroll">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand page-scroll transition" href="#page-top" target="_self"><div><i class="fa fa-shopping-basket" aria-hidden="true"></i> Loja Fácil</div></a>
-      </div>
-      <ul class="nav navbar-nav navbar-right">
-        <li>
-          <div class="search-top">
-            <input type="text" class="transition form-control" placeholder="Busque por produtos, clientes, pedidos ...">
-            <i class="fa fa-search" aria-hidden="true"></i>
+      <div class="container">
+          <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand page-scroll transition" href="#page-top" target="_self"><i class="fa fa-shopping-cart" aria-hidden="true"></i>Minha Loja Fácil</a>
           </div>
-        </li>
-        <li>
-          <a class="page-scroll" href="javascript:void(0)">
-            <div class="circle transition circle-perfil">
-              <img src="img/perfil_1.jpg" alt="Foto de Perfil" class="img-responsive">
-            </div>
-          </a>
-        </li>
-      </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <div class="search-top">
+                <input type="text" class="transition form-control" placeholder="Busque por produtos, clientes, pedidos ...">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </div>
+            </li>
+            <li class="notification">
+                <a class="dropdown-toggle" href="javascript:void(0)" data-toggle="tooltip" data-placement="bottom" title="100" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-bell" aria-hidden="true"></i>
+                </a>
+                <ul class="dropdown-menu with-arrow dropdown-menu-right">
+                    <li><a href="javascript:void(0)"><i class="fa fa-puzzle-piece" aria-hidden="true"></i> Seus dados</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="javascript:void(0)"><i class="fa fa-user-plus" aria-hidden="true"></i> Novo administrador</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="javascript:void(0)"><i class="fa fa-sign-out" aria-hidden="true"></i> Sair</a></li>
+                </ul>
+            </li>
+            <li>
+                <a class="dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <div class="circle transition circle-perfil">
+                        <img src="img/perfil_1.jpg" alt="Foto de Perfil" class="img-responsive">
+                    </div>
+                </a>
+                <ul class="dropdown-menu with-arrow dropdown-menu-right">
+                    <li>
+                        <div class="topo-dropdown-user">
+                            <div class="circle transition circle-perfil">
+                                <img src="img/perfil_1.jpg" alt="Foto de Perfil" class="img-responsive">
+                            </div>
+                            <p>Murilo Eduardo dos Santos</p>
+                            <p>muriloeduardoooooo@gmail.com</p>
+                        </div>
+                    </li>
+                    <li><a href="javascript:void(0)"><i class="fa fa-puzzle-piece" aria-hidden="true"></i> Seus dados</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="javascript:void(0)"><i class="fa fa-user-plus" aria-hidden="true"></i> Novo administrador</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="javascript:void(0)"><i class="fa fa-sign-out" aria-hidden="true"></i> Sair</a></li>
+                </ul>
+            </li>
+          </ul>
+      </div>
     </nav>
     <nav class="navbar navbar-secondary navbar-fixed-top navbar-auxiliar" role="navigation" ng-controller="navCtrl">
       <div class="container">
@@ -84,6 +116,19 @@
     </nav>
 
     <div class="main-section" ng-view></div>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-12 text-right fnt-12">
+                        <a href="javascript:void(0)" class="btn btn-primary fnt-12">Suporte</a>
+                        <a href="javascript:void(0)" class="btn btn-default fnt-12">Dúvidas</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <!-- jQuery -->
     <script src="libs/jquery/jquery.min.js"></script>
@@ -146,5 +191,8 @@
     <!-- Directives -->
     <!-- Mascara de Inputs -->
     <script src="js/directives/ngMask.min.js"></script>
+
+    <!-- Bootbox -->
+    <script src="libs/bootbox/bootbox.min.js"></script>
   </body>
 </html>

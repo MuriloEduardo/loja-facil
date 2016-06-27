@@ -11,16 +11,6 @@ app.config(function ($routeProvider, $locationProvider) {
 		controller: 'produtosCtrl'
 	})
 
-	.when('/produtos/cadastro-rapido', {
-		templateUrl: 'partials/produtos/cadastro-rapido.html',
-		controller: 'produtosCtrl'
-	})
-
-	.when('/produtos/cadastro-detalhado', {
-		templateUrl: 'partials/produtos/cadastro-detalhado.html',
-		controller: 'produtosCtrl'
-	})
-
 	.when('/estoque', {
 		templateUrl: 'partials/estoque.html',
 		controller: 'estoqueCtrl'

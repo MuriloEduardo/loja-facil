@@ -11,7 +11,6 @@ module.exports = function(router){
 
 		produtos.save(function(err, data){
 			if(err){
-				console.log(err)
 				throw err;
 			}
 
