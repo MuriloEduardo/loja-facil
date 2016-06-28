@@ -1,6 +1,30 @@
-var Produtos = require('../models/produtos');
+var Produtos  = require('../models/produtos');
+var multer    = require('multer');
+var fs        = require('fs');
+
+var storage  = multer.diskStorage({
+    destination: function (req, file, cb) {
+        var imagesPathDestin = './server/uploads/imagens/' + req.params.path;
+        
+        if (!fs.existsSync(imagesPathDestin)) fs.mkdirSync(imagesPathDestin);
+
+    	cb(null, imagesPathDestin);
+    },
+    filename: function (req, file, cb) {
+        var fileName = file.originalname.split('.')[0];
+        var fileType = file.originalname.split('.')[1];
+        
+        cb(null, fileName + '.' + fileType + '@' + req.params.name + Date.now() + '.' + fileType);
+    }
+});
+var upload   = multer({ storage: storage });
 
 module.exports = function(router){
+
+	router.post('/upload/imagens/:path/:name', upload.single('file'), function (req, res, next) {
+		res.json({success: true});
+	});
+
 	router.post('/produtos', function(req, res){
 		var produtos 		   = new Produtos();
 		produtos.departamento  = req.body.departamento;

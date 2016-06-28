@@ -594,3 +594,31 @@ nav .dropdown-menu>li>a i{
     vertical-align: middle;
     height: 100%;
 }
+.thumbnail.photo.another-file-over-class {
+    color: #00aaff;
+    background-color: rgba(0, 170, 255, .1);
+    border: 1px dashed #00aaff;
+}
+.thumbnail.photo.another-file-over-class .fa-camera:before {
+    content: "\f0ee";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+}
+.thumbnail.photo.another-file-over-class div:after{
+    content: "Solte aqui sua \a ou suas imagens";
+    white-space: pre;
+}
+.thumbnail.photo.another-file-over-class .tit1FotosPrdt{
+    display: none;
+}
+#modalEditFilesUpload .thumbnail{
+    margin-bottom: 30px;
+}
+#modalEditFilesUpload .thumbnail .caption{
+    padding: 0;
+}
+#modalEditFilesUpload .progress-bar{
+    background-color: #00aaff;
+}

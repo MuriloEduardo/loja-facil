@@ -18,10 +18,13 @@ app.controller('produtosCtrl', function($scope, Api, $timeout){
 		}
 	}
 
+	$scope.clickUpload = function(){
+	    angular.element('#uploadImage').trigger('click');
+	};
+
 	var getProdutos = function() {
 		$scope.getingProdutos = true;
 		Api.Produtos.query({}, function(data){
-			console.log(data)
 			for (var i=0; i < data.length; i++) {
 
 				if(data[i].categoria)
@@ -76,7 +79,6 @@ app.controller('produtosCtrl', function($scope, Api, $timeout){
 					});
 				}, 1000);
 			}else{
-				console.log(idProdutoCadastrando)
 				delaySave = setTimeout(function(){
 					Api.Produtos.save({id: idProdutoCadastrando}, $scope.produto, function(data){
 						if(data){
@@ -138,7 +140,6 @@ app.controller('produtosCtrl', function($scope, Api, $timeout){
 	}
 
 	$scope.retomar = function(obj) {
-		console.log(obj._id)
 		idProdutoCadastrando = obj._id;
 
 		$scope.produto = obj;

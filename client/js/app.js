@@ -1,1 +1,1 @@
-var app = angular.module('adminApp', ['ngRoute', 'ngResource', 'ngMask', 'ngAnimate']);
+var app = angular.module('adminApp', ['ngRoute', 'ngResource', 'ngMask', 'ngAnimate', 'angularFileUpload']);
