@@ -12,7 +12,8 @@
     "bootstrap": "^3.3.6",
     "angular-route": "^1.5.7",
     "angular-resource": "^1.5.7",
-    "angular-animate": "^1.5.7"
+    "angular-animate": "^1.5.7",
+    "semantic-ui-dropdown": "^2.2.1"
   },
   "install": {
     "path": "client/libs"

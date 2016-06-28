@@ -21,10 +21,6 @@ var upload   = multer({ storage: storage });
 
 module.exports = function(router){
 
-	router.post('/upload/imagens/:path/:name', upload.single('file'), function (req, res, next) {
-		res.json({success: true});
-	});
-
 	router.post('/produtos', function(req, res){
 		var produtos 		   = new Produtos();
 		produtos.departamento  = req.body.departamento;
@@ -34,12 +30,15 @@ module.exports = function(router){
 		produtos.quantidade    = req.body.quantidade;
 
 		produtos.save(function(err, data){
-			if(err){
-				throw err;
-			}
-
-			res.json(data);
+			if(err)
+				res.json(err);
+			else
+				res.json(data);
 		});
+	});
+
+	router.post('/upload/imagens/:path/:name', upload.single('file'), function (req, res, next) {
+		res.json({success: true});
 	});
 
 	router.get('/produtos', function(req, res){

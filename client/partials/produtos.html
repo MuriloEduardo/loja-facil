@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <div class="col-md-8">
+        <div class="col-md-7">
           <div class="row">
             <div class="col-md-12">
               <div class="cadastro-produtos-box">
@@ -41,7 +41,7 @@
                       <div class="col-md-12 text-center nopadding-r">
                         <div class="thumbnail photo eng-photo-newprdt" ng-click="clickUpload()" nv-file-over="" uploader="uploader" over-class="another-file-over-class">
                           <i class="fa fa-camera" aria-hidden="true"></i>
-                          <div><span class="tit1FotosPrdt">Adicione imagens<br>clicando ou arrastando</span></div>
+                          <div><span class="tit1FotosPrdt">Adicionar<br>imagens</span></div>
                         </div>
                       </div>
                     </div>
@@ -52,35 +52,41 @@
                         <div class="modal-content">
                           <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">Modal title</h4>
+                            <h4 class="modal-title"><strong>Uau!</strong> Este produto vai ficar lindo.</h4>
                           </div>
                           <div class="modal-body">
-                            <div class="row">
-                              <div class="col-md-3" ng-repeat="item in uploader.queue">
-                                <!-- Nome original do arquivo -->
-                                <!-- {{ item.file.name }} -->
+                            
+                            <!-- Nome original do arquivo -->
+                            <!-- {{ item.file.name }} -->
 
-                                <!-- Tamanho do arquivo -->
-                                <!-- {{ item.file.size/1024/1024|number:2 }} MB -->
-                                <div class="thumbnail">
-                                  <div ng-thumb="{ file: item._file, height: 100 }" class="text-center engloba-canvas-thumb"></div>
-                                  <div class="caption">
-                                    <div class="progress" style="margin-bottom: 0;">
-                                      <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
-                                    </div>
-                                    <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
-                                        <span class="glyphicon glyphicon-upload"></span> Upload
-                                    </button>
-                                    <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
-                                        <span class="glyphicon glyphicon-ban-circle"></span> Cancel
-                                    </button>
-                                    <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
-                                        <span class="glyphicon glyphicon-trash"></span> Remove
-                                    </button>
+                            <!-- Tamanho do arquivo -->
+                            <!-- {{ item.file.size/1024/1024|number:2 }} MB -->
+                            <div ng-repeat="item in uploader.queue" class="thumbnail">
+                              <div ng-thumb="{ file: item._file, height: 100 }"></div>
+                              <div class="caption">
+                                <div class="options-thumb-upload-prdt">
+                                  <div class="circle circ-icons">
+                                    <i class="fa fa-paint-brush" aria-hidden="true"></i>
+                                  </div>
+                                  <div class="circle circ-icons" ng-click="item.remove()">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
                                   </div>
                                 </div>
+                                
+                                <!-- <div class="progress" style="margin-bottom: 0;">
+                                  <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+                                </div>
+                                <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+                                    <span class="glyphicon glyphicon-upload"></span> Upload
+                                </button>
+                                <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
+                                    <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                                </button>
+                                <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+                                    <span class="glyphicon glyphicon-trash"></span> Remove
+                                </button> -->
                               </div>
-                            </div>                          
+                            </div>
                             <!--                             <tr>
                                 <td class="text-center">
                                     <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
@@ -88,27 +94,17 @@
                                     <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
                                 </td>
                             </tr> -->
-                          <div>
-                              <div>
-                                  Queue progress:
-                                  <div class="progress" style="">
-                                      <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
-                                  </div>
-                              </div>
-                              <button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
-                                  <span class="glyphicon glyphicon-upload"></span> Upload all
-                              </button>
-                              <button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
-                                  <span class="glyphicon glyphicon-ban-circle"></span> Cancel all
-                              </button>
-                              <button type="button" class="btn btn-danger btn-s" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
-                                  <span class="glyphicon glyphicon-trash"></span> Remove all
-                              </button>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <!-- <div class="progress" style="">
+                                <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+                              </div> -->
+                            </div>
                           </div>
                           </div>
                           <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            <a href="javascript:void(0)" data-dismiss="modal" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">Remover todas</a>
+                            <button type="button" class="btn btn-primary" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">Adicionar todas <i class="fa fa-cloud-upload" aria-hidden="true"></i></button>
                           </div>
                         </div>
                       </div>
@@ -124,13 +120,67 @@
                       <div class="form-group">
                         <div class="row">
                           <div class="col-md-6">
-                            <select class="form-control" ng-show="departamentos.length != '0'" ng-model="produto.departamento.titulo" ng-change="salvar()" ng-options="departamento for departamento in departamentos">
+                            <!-- <select class="form-control" ng-show="departamentos.length != '0'" ng-model="produto.departamento" ng-change="salvar();getCategorias(produto.departamento)" ng-options="departamento.id as departamento.titulo for departamento in departamentos">
                               <option value="" disabled>Qual o departamento?</option>
                             </select>
-                            <input type="text" ng-show="departamentos.length == '0'" placeholder="Qual o departamento?" class="form-control" ng-focus="stopSave()" ng-model="produto.departamento.titulo" ng-blur="salvar()"></input>
+                            <input type="text" ng-show="departamentos.length == '0'" placeholder="Qual o departamento?" class="form-control" ng-focus="stopSave()" ng-model="produto.departamento.titulo" ng-blur="salvar()"></input> -->
+                            <script>$('.ui.dropdown').dropdown();</script>
+                            <div class="ui floating dropdown labeled icon button form-control">
+                              <i class="filter icon"></i>
+                              <span class="text">Filter Posts</span>
+                              <div class="menu">
+                                <div class="ui icon search input">
+                                  <i class="search icon"></i>
+                                  <input type="text" placeholder="Search tags...">
+                                </div>
+                                <div class="divider"></div>
+                                <div class="header">
+                                  <i class="tags icon"></i>
+                                  Tag Label
+                                </div>
+                                <div class="scrolling menu">
+                                  <div class="item">
+                                    <div class="ui red empty circular label"></div>
+                                    Important
+                                  </div>
+                                  <div class="item">
+                                    <div class="ui blue empty circular label"></div>
+                                    Announcement
+                                  </div>
+                                  <div class="item">
+                                    <div class="ui black empty circular label"></div>
+                                    Cannot Fix
+                                  </div>
+                                  <div class="item">
+                                    <div class="ui purple empty circular label"></div>
+                                    News
+                                  </div>
+                                  <div class="item">
+                                    <div class="ui orange empty circular label"></div>
+                                    Enhancement
+                                  </div>
+                                  <div class="item">
+                                    <div class="ui empty circular label"></div>
+                                    Change Declined
+                                  </div>
+                                  <div class="item">
+                                    <div class="ui yellow empty circular label"></div>
+                                    Off Topic
+                                  </div>
+                                  <div class="item">
+                                    <div class="ui pink empty circular label"></div>
+                                    Interesting
+                                  </div>
+                                  <div class="item">
+                                    <div class="ui green empty circular label"></div>
+                                    Discussion
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                           </div>
                           <div class="col-md-6">
-                            <select ng-show="categorias.length != '0'" class="form-control" ng-focus="stopSave()" ng-model="produto.categoria.titulo" ng-blur="salvar()" ng-options="categoria for categoria in categorias">
+                            <select ng-show="categorias.length != '0'" class="form-control" ng-focus="stopSave()" ng-model="produto.categoria" ng-blur="salvar()" ng-options="categoria.id as categoria.titulo for categoria in categorias">
                               <option value="" disabled>Qual a categoria?</option>
                             </select>
                             <div class="icone-input-right">
@@ -145,7 +195,7 @@
                             <div class="input-group">
                               <input type="text" class="form-control noarrows" placeholder="Qual o preço?" ng-focus="stopSave()" ng-blur="salvar()" ng-model="produto.preco" mask="9999999" mask-restrict="reject" value="{{campoDinheiro | currency:'R$'}}" maxlength="7">
                               <div class="input-group-btn"> 
-                                <div class="btn btn-default" style="width:125px"> 
+                                <div class="btn btn-default"> 
                                   <span ng-show="produto.preco" ng-hide="!produto.preco">R$ {{produto.preco | currency:''}}</span>
                                   <span ng-show="!produto.preco" ng-hide="produto.preco">R$ {{'0' | currency:''}}</span>
                                 </div>
@@ -160,6 +210,7 @@
                     </form>
                   </div>
                 </div>
+                {{produto}}
                 <!-- Footer do cadastro de produtos -->
                 <div class="row text-right">
                   <div class="col-md-12">
@@ -172,7 +223,14 @@
                       </div>
                       <div class="row nomargin" ng-show="salvaAuto" ng-hide="!salvaAuto">
                         <div class="col-md-12">
-                          <span ng-show="produtoSalvo" class="success">Produto salvo em estoque!</span>
+                          <!-- Avisos de resposta do formulario -->
+                          <!-- Salvando -->
+                          <span class="fnt-12 avisos-footer-new-prdt" ng-show="loadingsaveProduto == 'fa-spinner fa-pulse fa-fw'">Salvando ... </span>
+                          <!-- Salvo -->
+                          <span class="fnt-12 avisos-footer-new-prdt" ng-show="produtoSalvo" class="success">Produto salvo em estoque </span>
+                          <!-- Erro -->
+                          <span class="fnt-12 avisos-footer-new-prdt" ng-show="error.show" class="error">{{error.msg}} </span>
+
                           <i ng-hide="produtoSalvo" class="fa {{loadingsaveProduto}}" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Salvamento automático"></i>
                         </div>
                       </div>
@@ -182,7 +240,6 @@
               </div>
             </div>
           </div>
-          <br>
           <div class="row">
             <div class="col-md-12">
               <div class="cadastro-produtos-box">
@@ -248,16 +305,19 @@
           </div>
         </div>
         <!-- Coluna da direita para manipulações rapidas -->
-        <div class="col-md-4">
+        <div class="col-md-5">
           <div class="cadastro-produtos-box estoque-box">
             <!-- Topo -->
             <div class="row">
               <div class="col-md-12">
                 <div class="topo-cadastro-produtos">
                   <div class="row nomargin">
-                    <div class="col-md-12">
+                    <div class="col-md-9">
                       <p class="nomargin"><strong>Estoque</strong></p>
                       <p class="fnt-12">Cores? Tamahos? Frete? Configuramos tudo aqui.</p>
+                    </div>
+                    <div class="col-md-3">
+                      <a href="javascript:void(0)" class="btn btn-primary">Entrar</a>
                     </div>
                   </div>
                 </div>

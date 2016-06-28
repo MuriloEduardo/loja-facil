@@ -1,4 +1,4 @@
-app.controller('produtosCtrl', function($scope, Api, $timeout){
+app.controller('produtosCtrl', function($scope, Api, $timeout, $filter){
 
 	var delaySave;
 	var idProdutoCadastrando;
@@ -7,8 +7,59 @@ app.controller('produtosCtrl', function($scope, Api, $timeout){
 	$scope.salvaAuto = true;
 	$scope.estoque = [];
 	$scope.abandonados = [];
-	$scope.categorias = [];
-	$scope.departamentos = [];
+
+	$scope.departamentos = [
+		{
+			"id": 28,
+			"titulo": "Departamento 1"	
+		},
+		{
+			"id": 338,
+			"titulo": "Departamento 2"	
+		},
+		{
+			"id": 91,
+			"titulo": "Departamento 3"	
+		}
+	];
+
+	var getCategorias = [
+		{
+			"id": 1,
+			"dptoId": 338,
+			"titulo": "Categoria teste 1"
+		},
+		{
+			"id": 36,
+			"dptoId": 338,
+			"titulo": "Categoria teste 2"
+		},
+		{
+			"id": 67,
+			"dptoId": 91,
+			"titulo": "Categoria teste 3"
+		},
+		{
+			"id": 167,
+			"dptoId": 91,
+			"titulo": "Categoria teste 4"
+		},
+		{
+			"id": 23,
+			"dptoId": 28,
+			"titulo": "Categoria teste 5"
+		},
+		{
+			"id": 50,
+			"dptoId": 28,
+			"titulo": "Categoria teste 6"
+		}
+	];
+
+	$scope.getCategorias = function(id) {
+		var found = $filter('filter')(getCategorias, {dptoId: id}, true);
+		if (found.length) $scope.categorias = found;
+	}
 	
 	$scope.salvaAutoFun = function() {
 		if($scope.salvaAuto){
@@ -27,11 +78,11 @@ app.controller('produtosCtrl', function($scope, Api, $timeout){
 		Api.Produtos.query({}, function(data){
 			for (var i=0; i < data.length; i++) {
 
-				if(data[i].categoria)
+				/*if(data[i].categoria)
 					$scope.categorias.push(data[i].categoria);
 
 				if(data[i].departamento)
-					$scope.departamentos.push(data[i].departamento);
+					$scope.departamentos.push(data[i].departamento);*/
 
 				if(Object.keys(data[i]).length >= 9){
 					$scope.estoque.push(data[i]);
@@ -64,8 +115,6 @@ app.controller('produtosCtrl', function($scope, Api, $timeout){
 	}
 
 	$scope.salvar = function() {
-		
-		$scope.loadingsaveProduto = 'fa-spinner fa-pulse fa-fw';
 		if($scope.produto){
 			if(Object.keys($scope.produto).length == 1){
 				// Primeiro campo do produto que esta sendo cadastrado
@@ -74,15 +123,21 @@ app.controller('produtosCtrl', function($scope, Api, $timeout){
 					Api.Produtos.save({}, $scope.produto, function(data){
 						if(data){
 							idProdutoCadastrando = data._id;
-							$scope.loadingsaveProduto = 'fa-check';
 						}
 					});
 				}, 1000);
 			}else{
 				delaySave = setTimeout(function(){
+					$scope.loadingsaveProduto = 'fa-spinner fa-pulse fa-fw';
 					Api.Produtos.save({id: idProdutoCadastrando}, $scope.produto, function(data){
-						if(data){
-							$scope.loadingsaveProduto = 'fa-check';
+						if(data.errors){
+							console.log(data.errors)
+							$scope.error = {
+								show: true,
+								msg: 'Erro! Tente atualizar, caso não resolva entre em contato com o suporte'
+							}
+							$scope.loadingsaveProduto = 'fa-floppy-o';
+						}else if(data){
 							////////////////////////////////////
 							// completou cadastro do produto //
 							//////////////////////////////////
@@ -99,8 +154,6 @@ app.controller('produtosCtrl', function($scope, Api, $timeout){
 					});
 				}, 1000);
 			}
-		}else{
-			$scope.loadingsaveProduto = 'fa-floppy-o';
 		}
 	}
 

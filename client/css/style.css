@@ -42,14 +42,14 @@ a.gray:focus, a.gray:hover{
 .main-section {
     height: 100%;
     padding-top: 120px;
-    background-color:#f7f7f7;
+    background-color:#e9ebee;
 }
 .configuracoes-section{
     background-color:#fff;
 }
 section{
     padding:30px 0 70px 0;
-    background-color:#f7f7f7;
+    background-color:#e9ebee;
 }
 .navbar-default{
     background-color:#00aaff;
@@ -213,7 +213,7 @@ section{
     outline:none;
 }
 
-.btn-primary.focus, .btn-primary:focus, .btn-primary:hover,.btn-primary:active:hover {
+.btn-primary.focus, .btn-primary:focus, .btn-primary:hover,.btn-primary:active:hover,.btn-primary[disabled]:hover {
     color: #fff;
     background-color: #0176a1;
     border-color: #0176a1;
@@ -276,6 +276,8 @@ input[type=number].noarrows::-webkit-outer-spin-button {
     padding-bottom: 0;
     padding-left: 0;
     border:solid thin #ddd;
+    margin-bottom:30px;
+    box-shadow: 0 1px 3px rgba(200,200,200,0.12), 0 1px 2px rgba(200,200,200,0.24);
 }
 .estoque-box{
     overflow: hidden;
@@ -338,7 +340,7 @@ input[type=number].noarrows::-webkit-outer-spin-button {
     cursor:pointer;
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 }
-.cada-produto-estoque:hover{background-color:#f7f7f7;}
+.cada-produto-estoque:hover{background-color:#e9ebee;}
 .numeros-produtos .btn{
     font-size: 12px;
     padding: 2px 12px;
@@ -511,8 +513,12 @@ input[type=number].noarrows::-webkit-outer-spin-button {
         content:'';
     }
 }
+.avisos-footer-new-prdt{
+    margin-right: 5px;
+}
 .btn-group.open .dropdown-toggle {box-shadow:none;}
 .success{color:#5cb85c;}
+.error{color:#c9302c;}
 .no-produtos-estoque .fa{
     font-size:30px;
     margin-bottom: 10px;
@@ -607,18 +613,97 @@ nav .dropdown-menu>li>a i{
     text-decoration: inherit;
 }
 .thumbnail.photo.another-file-over-class div:after{
-    content: "Solte aqui sua \a ou suas imagens";
+    content: "Solte aqui \a suas imagens";
     white-space: pre;
 }
 .thumbnail.photo.another-file-over-class .tit1FotosPrdt{
     display: none;
-}
-#modalEditFilesUpload .thumbnail{
-    margin-bottom: 30px;
 }
 #modalEditFilesUpload .thumbnail .caption{
     padding: 0;
 }
 #modalEditFilesUpload .progress-bar{
     background-color: #00aaff;
+}
+#modalEditFilesUpload .thumbnail{
+    float:left;
+    margin-bottom:5px;
+    margin:5px;
+    cursor:pointer;
+    padding-bottom: 0;
+    position:relative;
+}
+#modalEditFilesUpload .thumbnail .caption{
+    -webkit-transition: all .35s ease-in-out;
+    -moz-transition: all .35s ease-in-out;
+    transition: all .35s ease-in-out;
+}
+#modalEditFilesUpload .thumbnail:hover .caption{
+    background-color:rgba(0, 0, 0, .5);
+    width:100%;
+    height:100%;
+    border-radius:4px;
+    content:"";
+    z-index:1;
+    position:absolute;
+    top:0;
+    left:0;
+}
+.circ-icons{
+    opacity:0;
+    width:35px;
+    height:35px;
+    position:absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    color:#fff;
+    z-index:10;
+    text-align:center;
+    border:solid thin #fff;
+    line-height:32.5px;
+    -webkit-transition: all .35s ease-in-out;
+    -moz-transition: all .35s ease-in-out;
+    transition: all .35s ease-in-out;
+}
+#modalEditFilesUpload .thumbnail:hover .caption:hover .circ-icons{
+    opacity:1;
+}
+.circ-icons:first-child{
+    right:15px;
+}
+.circ-icons:last-child{
+    left:15px;
+}
+.circ-icons:hover{
+    background-color:rgba(0, 170, 255, .3);
+}
+#modalEditFilesUpload .modal-footer .btn-primary{
+    margin-left:10px;
+}
+#modalEditFilesUpload .modal-footer .btn-primary i{
+    margin-left:5px;
+}
+#modalEditFilesUpload .modal-footer .btn-primary:hover{
+    text-shadow:2px 2px 10px rgba(255, 255, 255, .5);
+}
+.modal-open .modal{
+    background-color:rgba(0, 170, 255, .3);
+}
+#modalEditFilesUpload .modal-content{
+    box-shadow: 0 1px 3px rgba(255,255,255,.12), 0 1px 2px rgba(255,255,255,.24);
+    border-color: transparent;
+}
+#modalEditFilesUpload .modal-header{
+    background-color:#e9ebee;
+    border-top-right-radius:4px;
+    border-top-left-radius:4px;
+}
+#modalEditFilesUpload .modal-title{
+    font-size:14px;
+}
+#modalEditFilesUpload canvas{
+    width:100px;
+    min-height:40px;
+    height:auto;
 }
