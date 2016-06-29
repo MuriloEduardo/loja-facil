@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <div class="col-md-7">
+        <div class="col-md-{{leftColumWidth}}">
           <div class="row">
             <div class="col-md-12">
               <div class="cadastro-produtos-box">
@@ -124,19 +124,20 @@
                               <option value="" disabled>Qual o departamento?</option>
                             </select>
                             <input type="text" ng-show="departamentos.length == '0'" placeholder="Qual o departamento?" class="form-control" ng-focus="stopSave()" ng-model="produto.departamento.titulo" ng-blur="salvar()"></input> -->
-                            <script>$('.ui.dropdown').dropdown();</script>
-                            <div class="ui floating dropdown labeled icon button form-control">
-                              <i class="filter icon"></i>
-                              <span class="text">Filter Posts</span>
+                            <div class="ui simple item dropdown labeled icon button form-control">
+                              <span class="text">Qual o departamento?</span>
                               <div class="menu">
                                 <div class="ui icon search input">
-                                  <i class="search icon"></i>
-                                  <input type="text" placeholder="Search tags...">
+                                  <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Novo departamento">
+                                    <span class="input-group-btn">
+                                      <button class="btn btn-default" type="button">Criar</button>
+                                    </span>
+                                  </div>
                                 </div>
                                 <div class="divider"></div>
                                 <div class="header">
-                                  <i class="tags icon"></i>
-                                  Tag Label
+                                  Departamentos já cadastrados
                                 </div>
                                 <div class="scrolling menu">
                                   <div class="item">
@@ -210,7 +211,6 @@
                     </form>
                   </div>
                 </div>
-                {{produto}}
                 <!-- Footer do cadastro de produtos -->
                 <div class="row text-right">
                   <div class="col-md-12">
@@ -231,7 +231,13 @@
                           <!-- Erro -->
                           <span class="fnt-12 avisos-footer-new-prdt" ng-show="error.show" class="error">{{error.msg}} </span>
 
-                          <i ng-hide="produtoSalvo" class="fa {{loadingsaveProduto}}" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Salvamento automático"></i>
+                          <!-- <i ng-hide="produtoSalvo" class="fa {{loadingsaveProduto}}" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Salvamento automático"></i> -->
+                          <div class="eng-mini-loader">
+                            <div class="ui active inverted dimmer" data-toggle="tooltip" data-placement="top" title="Salvamento automático">
+                              <div class="ui mini text loader"></div>
+                            </div>
+                            <p></p>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -268,7 +274,7 @@
                       </div>
                     </div>
                     <div class="loading-estoque" ng-show="getingProdutos" ng-hide="!getingProdutos">
-                      <i class="fa fa-spinner fa-pulse fa-fw" aria-hidden="true"></i>
+                      <div class="ui active inline loader"></div>
                     </div>
                     <div class="no-produtos-estoque" ng-show="isEmpty(abandonados) && !getingProdutos">
                       <i class="fa fa-smile-o" aria-hidden="true"></i>
@@ -305,24 +311,34 @@
           </div>
         </div>
         <!-- Coluna da direita para manipulações rapidas -->
-        <div class="col-md-5">
+        <div class="col-md-{{rightColumWidth}}">
           <div class="cadastro-produtos-box estoque-box">
             <!-- Topo -->
             <div class="row">
               <div class="col-md-12">
                 <div class="topo-cadastro-produtos">
                   <div class="row nomargin">
-                    <div class="col-md-9">
+                    <div class="col-md-10">
                       <p class="nomargin"><strong>Estoque</strong></p>
                       <p class="fnt-12">Cores? Tamahos? Frete? Configuramos tudo aqui.</p>
                     </div>
-                    <div class="col-md-3">
-                      <a href="javascript:void(0)" class="btn btn-primary">Entrar</a>
+                    <div class="col-md-2 text-right">
+                      <div class="btn-group optionsTopoCadastroProduto">
+                        <a href="javascript:void(0)" class="gray dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                          <li><a href="#">Ajuda</a></li>
+                          <li><a href="javascript:void(0)" ng-click="expandirEstoque()"><span ng-show="rightColumWidth == '5'">Expandir</span><span ng-show="rightColumWidth == '7'">Recolher</span></a></li>
+                          <li role="separator" class="divider"></li>
+                          <li><a href="#">Relatar algum problema</a></li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </div>
                 <div class="loading-estoque" ng-show="getingProdutos" ng-hide="!getingProdutos">
-                  <i class="fa fa-spinner fa-pulse fa-fw" aria-hidden="true"></i>
+                  <div class="ui active inline loader"></div>
                 </div>
                 <div class="no-produtos-estoque" ng-show="isEmpty(estoque) && !getingProdutos">
                   <i class="fa fa-frown-o" aria-hidden="true"></i>

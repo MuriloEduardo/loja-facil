@@ -17,3 +17,22 @@ $(function() {
         event.preventDefault();
     });
 });
+
+$('.ui.dropdown').dropdown();
+
+// globally inherited on init
+$.fn.dropdown.onChange = function(){
+    alert('teste 1')
+};
+
+// during init
+$('.ui.dropdown').dropdown({
+ onChange: function() {
+    alert('teste 2')
+ }
+});
+
+// after init
+$('.ui.dropdown').dropdown('setting', 'onChange', function(){
+    alert('teste 3')
+});

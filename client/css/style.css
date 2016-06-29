@@ -707,3 +707,28 @@ nav .dropdown-menu>li>a i{
     min-height:40px;
     height:auto;
 }
+.eng-mini-loader{
+    position: relative;
+    width: 10px;
+    height: 10px;
+    padding: 10px;
+    float: right;
+}
+.eng-mini-loader .ui.mini.text.loader {
+    min-width: 1rem;
+    padding-top: 1.1rem;
+}
+form[name="passo1"] .ui.labeled.icon.button, .ui.labeled.icon.buttons .button {
+    position: relative;
+    padding-left: 12px!important;
+    padding-right: 12px!important;
+}
+form[name="passo1"] .ui.simple.active.dropdown>.menu, .ui.simple.dropdown:hover>.menu{
+    border-top-left-radius: 0;
+}
+form[name="passo1"] .ui.button{
+    background-color: #fff;
+    border: 1px solid #ddd;
+    color: #999;
+    font-weight: normal;
+}

@@ -1,4 +1,4 @@
-app.controller('produtosCtrl', function($scope, Api, $timeout, $filter){
+app.controller('produtosCtrl', function($scope, Api, $timeout, $filter, $rootScope){
 
 	var delaySave;
 	var idProdutoCadastrando;
@@ -7,6 +7,9 @@ app.controller('produtosCtrl', function($scope, Api, $timeout, $filter){
 	$scope.salvaAuto = true;
 	$scope.estoque = [];
 	$scope.abandonados = [];
+	var counter = 0;
+	$scope.leftColumWidth = '7';
+	$scope.rightColumWidth = '5';
 
 	$scope.departamentos = [
 		{
@@ -75,6 +78,19 @@ app.controller('produtosCtrl', function($scope, Api, $timeout, $filter){
 
 	var getProdutos = function() {
 		$scope.getingProdutos = true;
+
+		var myInterval = setInterval(function () {
+		  ++counter;
+		  console.log(counter)
+		  if(counter > 5){
+			clearInterval(myInterval);
+
+			// Acao de coneccao lenta
+			$rootScope.$root.lowerConnection();
+			console.log($rootScope)
+		  }
+		}, 1000);
+
 		Api.Produtos.query({}, function(data){
 			for (var i=0; i < data.length; i++) {
 
@@ -90,6 +106,8 @@ app.controller('produtosCtrl', function($scope, Api, $timeout, $filter){
 					$scope.abandonados.push(data[i]);
 				}
 			}
+
+			clearInterval(myInterval);
 			$scope.getingProdutos = false;
 		});
 	}
@@ -203,4 +221,14 @@ app.controller('produtosCtrl', function($scope, Api, $timeout, $filter){
 	$('[data-toggle="tooltip"]').tooltip();
 
 	getProdutos();
+
+	$scope.expandirEstoque = function() {
+		if($scope.leftColumWidth == '7'){
+			$scope.rightColumWidth = '7';
+			$scope.leftColumWidth = '5';
+		}else{
+			$scope.rightColumWidth = '5';
+			$scope.leftColumWidth = '7';
+		}
+	}
 });
