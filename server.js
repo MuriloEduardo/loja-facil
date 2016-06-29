@@ -5,7 +5,7 @@ var app        = express();
 var path       = require('path');
 var mongoose   = require('mongoose');
 var configDB   = require('./server/config/database');
-var port       = process.env.PORT || 8080;
+var port       = process.env.PORT || 1000;
 
 mongoose.connect(configDB.url, function(err, res) {
 	if(err){

@@ -14,7 +14,8 @@
     "angular-resource": "^1.5.7",
     "angular-animate": "^1.5.7",
     "semantic-ui-dropdown": "^2.2.1",
-    "semantic": "semantic-ui#^2.2.1"
+    "semantic": "semantic-ui#^2.2.1",
+    "uuid": "^2.0.2"
   },
   "install": {
     "path": "client/libs"

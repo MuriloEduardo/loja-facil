@@ -4,11 +4,11 @@ var produtosSchema = mongoose.Schema({
 	fotos: [],
 	lojaId: Number,
 	departamento: {
-		_id: { type: String, format: 'mongo-id' },
+		id: String,
 		titulo: String
 	},
 	categoria: {
-		_id: { type: String, format: 'mongo-id' },
+		id: String,
 		titulo: String,
 		dptoId: String
 	},

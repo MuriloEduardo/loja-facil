@@ -1,6 +1,7 @@
 var Produtos  = require('../models/produtos');
 var multer    = require('multer');
 var fs        = require('fs');
+var shortid   = require('shortid');
 
 var storage  = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -22,12 +23,19 @@ var upload   = multer({ storage: storage });
 module.exports = function(router){
 
 	router.post('/produtos', function(req, res){
-		var produtos 		   = new Produtos();
-		produtos.departamento  = req.body.departamento;
-		produtos.categoria 	   = req.body.categoria;
-		produtos.titulo 	   = req.body.titulo;
-		produtos.preco 	   	   = req.body.preco;
-		produtos.quantidade    = req.body.quantidade;
+		var produtos 		         = new Produtos();
+		if(req.body.departamento){
+			produtos.departamento.id 	 = req.body.departamento.id;
+			produtos.departamento.titulo = req.body.departamento.titulo;
+		}
+		if(req.body.categoria){
+			produtos.categoria.id 		 = req.body.categoria.id;
+			produtos.categoria.titulo    = req.body.categoria.titulo;
+			produtos.categoria.dptoId    = req.body.categoria.dptoId;
+		}
+		produtos.titulo 	      	 = req.body.titulo;
+		produtos.preco 	   	      	 = req.body.preco;
+		produtos.quantidade       	 = req.body.quantidade;
 
 		produtos.save(function(err, data){
 			if(err)
@@ -70,11 +78,18 @@ module.exports = function(router){
 			
 			var produtos = data;
 
-			produtos.departamento  = req.body.departamento;
-			produtos.categoria 	   = req.body.categoria;
-			produtos.titulo 	   = req.body.titulo;
-			produtos.preco 	   	   = req.body.preco;
-			produtos.quantidade    = req.body.quantidade;
+			if(req.body.departamento){
+				produtos.departamento.id 	 = req.body.departamento.id;
+				produtos.departamento.titulo = req.body.departamento.titulo;
+			}
+			if(req.body.categoria){
+				produtos.categoria.id 	  	 = req.body.categoria.id;
+				produtos.categoria.titulo    = req.body.categoria.titulo;
+				produtos.categoria.dptoId    = req.body.categoria.dptoId;
+			}
+			produtos.titulo 	         = req.body.titulo;
+			produtos.preco 	   	         = req.body.preco;
+			produtos.quantidade          = req.body.quantidade;
 
 			produtos.save(function(err, data){
 				if(err)

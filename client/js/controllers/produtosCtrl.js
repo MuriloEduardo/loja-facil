@@ -1,4 +1,4 @@
-app.controller('produtosCtrl', function($scope, Api, $timeout, $filter, $rootScope){
+app.controller('produtosCtrl', function($scope, Api, $timeout, $filter, $rootScope, serialGenerator){
 
 	var delaySave;
 	var idProdutoCadastrando;
@@ -10,57 +10,14 @@ app.controller('produtosCtrl', function($scope, Api, $timeout, $filter, $rootSco
 	var counter = 0;
 	$scope.leftColumWidth = '7';
 	$scope.rightColumWidth = '5';
+	$scope.titDepto = 'Qual o departamento?';
+	$scope.titCateg = 'Qual a categoria?';
+	$scope.departamentos = [];
+	$scope.categorias = [];
 
-	$scope.departamentos = [
-		{
-			"id": 28,
-			"titulo": "Departamento 1"	
-		},
-		{
-			"id": 338,
-			"titulo": "Departamento 2"	
-		},
-		{
-			"id": 91,
-			"titulo": "Departamento 3"	
-		}
-	];
-
-	var getCategorias = [
-		{
-			"id": 1,
-			"dptoId": 338,
-			"titulo": "Categoria teste 1"
-		},
-		{
-			"id": 36,
-			"dptoId": 338,
-			"titulo": "Categoria teste 2"
-		},
-		{
-			"id": 67,
-			"dptoId": 91,
-			"titulo": "Categoria teste 3"
-		},
-		{
-			"id": 167,
-			"dptoId": 91,
-			"titulo": "Categoria teste 4"
-		},
-		{
-			"id": 23,
-			"dptoId": 28,
-			"titulo": "Categoria teste 5"
-		},
-		{
-			"id": 50,
-			"dptoId": 28,
-			"titulo": "Categoria teste 6"
-		}
-	];
-
-	$scope.getCategorias = function(id) {
-		var found = $filter('filter')(getCategorias, {dptoId: id}, true);
+	var getCategorias = function(id) {
+		var found = $filter('filter')($scope.categorias, {dptoId: id}, true);
+		delete $scope.categorias;
 		if (found.length) $scope.categorias = found;
 	}
 	
@@ -81,24 +38,22 @@ app.controller('produtosCtrl', function($scope, Api, $timeout, $filter, $rootSco
 
 		var myInterval = setInterval(function () {
 		  ++counter;
-		  console.log(counter)
 		  if(counter > 5){
 			clearInterval(myInterval);
 
 			// Acao de coneccao lenta
 			$rootScope.$root.lowerConnection();
-			console.log($rootScope)
 		  }
 		}, 1000);
 
 		Api.Produtos.query({}, function(data){
 			for (var i=0; i < data.length; i++) {
 
-				/*if(data[i].categoria)
+				if(data[i].categoria)
 					$scope.categorias.push(data[i].categoria);
 
 				if(data[i].departamento)
-					$scope.departamentos.push(data[i].departamento);*/
+					$scope.departamentos.push(data[i].departamento);
 
 				if(Object.keys(data[i]).length >= 9){
 					$scope.estoque.push(data[i]);
@@ -146,10 +101,9 @@ app.controller('produtosCtrl', function($scope, Api, $timeout, $filter, $rootSco
 				}, 1000);
 			}else{
 				delaySave = setTimeout(function(){
-					$scope.loadingsaveProduto = 'fa-spinner fa-pulse fa-fw';
+					$scope.loadingsaveProduto = 'fa-circle-o-notch fa-spin fa-fw';
 					Api.Produtos.save({id: idProdutoCadastrando}, $scope.produto, function(data){
 						if(data.errors){
-							console.log(data.errors)
 							$scope.error = {
 								show: true,
 								msg: 'Erro! Tente atualizar, caso não resolva entre em contato com o suporte'
@@ -163,6 +117,7 @@ app.controller('produtosCtrl', function($scope, Api, $timeout, $filter, $rootSco
 								delete $scope.produto;
 								$scope.estoque.push(data);
 								$scope.produtoSalvo = true;
+								// Apenas retira letras, nenhuma ação
 								$timeout(function(){
 									$scope.produtoSalvo = false;
 									$scope.loadingsaveProduto = 'fa-floppy-o';
@@ -230,5 +185,47 @@ app.controller('produtosCtrl', function($scope, Api, $timeout, $filter, $rootSco
 			$scope.rightColumWidth = '5';
 			$scope.leftColumWidth = '7';
 		}
+	}
+
+	$scope.selectForm = function(obj, id) {
+		if(id){
+			$scope.titDepto = obj.titulo;
+
+			// Mostrar somente as categorias possiveis
+			//getCategorias(obj.id);
+		}else{
+			$scope.titCateg = obj.titulo;
+		}
+	}
+
+	$scope.newDepto = function(titulo) {
+		$scope.produto.departamento = {
+			id: serialGenerator.generate(10),
+			titulo: titulo
+		}
+		$scope.departamentos.push(angular.copy($scope.produto.departamento));
+		$scope.selectForm($scope.produto.departamento, true)
+
+		$scope.salvar();
+
+		setTimeout(function(){
+			delete $scope.produto.departamento.titulo;
+		}, 1100);
+	}
+
+	$scope.newCateg = function(titulo) {
+		$scope.produto.categoria = {
+			id: serialGenerator.generate(10),
+			titulo: titulo,
+			dptoId: $scope.produto.departamento.id
+		}
+		$scope.categorias.push(angular.copy($scope.produto.categoria));
+		$scope.selectForm($scope.produto.categoria, false)
+
+		$scope.salvar();
+
+		setTimeout(function(){
+			delete $scope.produto.categoria.titulo;
+		}, 1100);
 	}
 });
