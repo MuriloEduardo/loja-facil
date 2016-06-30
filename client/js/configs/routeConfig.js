@@ -8,7 +8,7 @@ app.config(function ($routeProvider, $locationProvider) {
 
 	.when('/produtos', {
 		templateUrl: 'partials/produtos.html',
-		controller: 'produtosCtrl'
+		controller: 'teste-produtoCtrl'
 	})
 
 	.when('/estoque', {

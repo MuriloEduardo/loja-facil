@@ -89,6 +89,7 @@ app.controller('produtosCtrl', function($scope, Api, $timeout, $filter, $rootSco
 
 	$scope.salvar = function() {
 		if($scope.produto){
+			console.log($scope.produto)
 			if(Object.keys($scope.produto).length == 1){
 				// Primeiro campo do produto que esta sendo cadastrado
 				$scope.produtoSalvo = false;

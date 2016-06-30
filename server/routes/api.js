@@ -1,7 +1,6 @@
 var Produtos  = require('../models/produtos');
 var multer    = require('multer');
 var fs        = require('fs');
-var shortid   = require('shortid');
 
 var storage  = multer.diskStorage({
     destination: function (req, file, cb) {
